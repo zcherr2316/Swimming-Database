@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+   <TITLE>Swimming Database</TITLE>
+</HEAD>
+<BODY>
+<div id="header">
+	<H1>Swimming Database</H1>
+</div>
+	<H2>Races</H2>
+	<table border=1 id="mariadb">
+		<tr><b><td>First Name</td><td>Last Name</td><td>Age</td><td>Class</td><td>School</td><td>Distance</td><td>Stroke</td><td>Minutes</td><td>Seconds</td><td>Decimals</td><td>Place</td><td>Date</td></b></tr>
+		{% for race in races %}
+			<tr><td>{{race[0]}}</td><td>{{race[1]}}</td><td>{{race[2]}}</td><td>{{race[3]}}</td><td>{{race[4]}}</td><td>{{race[5]}}</td><td>{{race[6]}}</td><td>{{race[7]}}</td><td>{{race[8]}}</td><td>{{race[9]}}</td><td>{{race[10]}}</td><td>{{race[11]}}</td></tr>
+		{% endfor %}
+	</table>
+	<form method="get">
+		<p>Event
+		<select name="event">
+			<option value="All">All</option>
+		{% for event in events %}
+			<option value="{{event[0]}},{{event[1]}}">{{event[0]}} {{event[1]}}</option>
+		{% endfor %}
+		<input type="submit" value="Filter">
+		</p>
+	</form>
+	<a href="{{url_for('add_data')}}">Add data</a>
+	<hr style="height:3:px;color:black">
+	<H2>Conferences</H2>
+	<table border=1 id="redis">
+		<tr><b><td>Conference</td><td>School</td></b></tr>
+		{% for school in conference %}
+			<tr><td>{{conferenceName}}</td><td>{{school}}</td></tr>
+		{% endfor %}
+	</table>
+	<form method="get">
+		<p>Conference
+		<select name="conference">
+		{% for conferenceNm in conferenceList %}
+			<option value={{conferenceNm}}>{{conferenceNm}}</option>
+		{% endfor %}
+		<input type="submit"value="Filter">
+		</p>
+	</form>	
+	
+	<form method="get">
+		<p>Name of school to add to a conference
+		<select name="conference">
+		{% for conferenceNm in conferenceList %}
+			<option value={{conferenceNm}}>{{conferenceNm}}</option>
+		{% endfor %}
+		<input type="hidden" name="add">
+		<input type="text" name="school">
+		<input type="submit"value="add">
+		</p>
+	</form>	
+
+
+
+	<hr style="height:3:px;color:black">
+	<H2>Records</H2>
+	<p>{{year}}</p>
+	<table border=1 id="redis">
+		<tr><b><td>School</td><td>Record</td></b></tr>
+		{% for school in records%}
+			<tr><td>{{school[0]}}</td><td>{{school[1]}}</td></tr>
+		{% endfor %}
+	</table>
+	<form method="get">
+		<p>Year
+		<select name="year">
+		{% for yearNm in yearList%}
+			<option value={{yearNm}}>{{yearNm}}</option>
+		{% endfor %}
+		<input type="submit" value="Filter">
+		</p>
+	</form>
+	<hr style="height:3px;color:black">
+	<H2>Schools</H2>
+	{% for school in schoolList%}
+		<a href="{{url_for('school_data', school=school['name'])}}">{{school['name']}}</a>
+		<p></P>
+	{% endfor %}
+	<H3>Filter Schools</H3>
+	<table>
+		<tr><td>Key</td><td>Value</td></tr>
+		<tr>
+		<form method=get>
+		<td><input type=text name=key></td>
+		<td><input type=text name=value></td>
+		<input type=submit name=keyfilter value=filter>
+		</tr>
+		</form>
+	</table>
+</BODY>
+</HTML>

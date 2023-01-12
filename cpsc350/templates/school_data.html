@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+	<TITLE>{{school}} information</TITLE>
+</HEAD>
+<BODY>
+	<center>
+	<H2>{{school}}</H2>
+	<table border=1>
+		<tr><b><td>Key</td><td>Value</td></b></tr>
+		<form method="GET">
+		<input type=hidden name=name value="{{school}}"/>
+		{% for item in schoolData[0] %}
+		<tr><td><p>{{item}}</p></td>
+		<td>
+		<input type=text name="{{item}}" value="{{schoolData[0][item]}}"/><br/>
+		</td></tr>
+		{% endfor %}
+	</table>
+	<input type=submit name=update value=update>
+		</form>
+		<form>
+	<p><b>Add a new Key-Value pair</b></p>
+	<input type=hidden name=name value="{{school}}">
+	<table>	
+		<tr><td>Key</td><td>Value</td></tr>
+		<tr>
+		<td><input type=text name=key></td>
+		<td><input type=text name=value></td>
+		</tr>	
+	</table>
+	<input type=submit name=add value=add>
+		</form>
+	</center>
+</BODY>
+</HTML>
